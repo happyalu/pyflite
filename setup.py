@@ -3,17 +3,16 @@
 from distutils.core import setup, Extension
 
 import os
-print os.environ['FLITE_LIBS']
-print os.environ['FLITE_INC']
 
-inc_dirs=['flite/include']
-lib_dirs=['flite/build/x86_64-linux-gnu/lib']
-
-if os.environ['FLITE_INC']:
+try:
     inc_dirs = [os.environ['FLITE_INC'],]
-if os.environ['FLITE_LIBS']:
-    lib_dirs = [os.environ['FLITE_LIBS'],]
+except KeyError:
+    inc_dirs=['flite/include']
 
+try:
+    lib_dirs = [os.environ['FLITE_LIBS'],]
+except KeyError:
+    lib_dirs=['flite/build/x86_64-linux-gnu/lib']
 
 setup(name='pyflite',
       version='0.1',
